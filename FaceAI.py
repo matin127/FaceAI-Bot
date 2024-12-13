@@ -19,24 +19,23 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(256, activation='relu'),
     tf.keras.layers.Dense(1, activation='sigmoid')  #طبقه‌بندی دوگانه
 ])
-# بارگذاری مدل شناسایی احساسات از FER
+#مدل شناسایی احساسات از FER
 emotion_detector = FER()
-# بارگذاری مدل‌های شناسایی چهره dlib
+#بارگذاری مدل‌ شناسایی چهره dlib
 face_detector = dlib.get_frontal_face_detector()
-
-# تشخیص و آنالیز چهره‌ها
+#تشخیص و تجزیه تحلیل چهره
 def detect_faces(image_path):
     img = cv2.imread(image_path)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    # شناسایی چهره‌ها با استفاده از dlib
+    #شناسایی و تشخیص چهره با استفاده از dlib
     faces = face_detector(gray)
     if len(faces) == 0:
         print("چهره‌ای شناسایی نشد.")
         return img, []
-    
+        
     return img, faces
 
-# شناسایی احساسات چهره
+#تابع شناسایی چهره
 def recognize_face_and_emotions(image_path):
     img, faces = detect_faces(image_path)
     if len(faces) == 0:
